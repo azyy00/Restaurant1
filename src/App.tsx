@@ -196,7 +196,14 @@ export default function App() {
       <TornEdge position="bottom" colorClass="bg-black" />
 
       {/* ABOUT SECTION */}
-      <section className="py-24 md:py-32 bg-black text-white relative overflow-hidden" id="about">
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 bg-black text-white relative overflow-hidden" 
+        id="about"
+      >
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
             <motion.div
@@ -243,12 +250,19 @@ export default function App() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <TornEdge position="top" colorClass="bg-black" />
 
       {/* FULL MENU */}
-      <section className="py-24 md:py-32 bg-black text-white relative" id="menu">
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 bg-black text-white relative" 
+        id="menu"
+      >
         <div className="container-custom">
           <div className="text-center mb-16 md:mb-24">
             <motion.h2 
@@ -343,11 +357,19 @@ export default function App() {
             </motion.button>
           </div>
         </div>
-      </section>
+      </motion.section>
+
       <TornEdge position="top" colorClass="bg-[#050505]" />
 
       {/* CONTACT */}
-      <section className="py-24 md:py-32 bg-[#050505] text-white" id="contact">
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 bg-[#050505] text-white" 
+        id="contact"
+      >
         <div className="container-custom max-w-6xl">
           <div className="text-center mb-16 md:mb-24">
             <h2 className="font-cursive text-orange-accent text-3xl md:text-5xl mb-4 text-center">Visit Us</h2>
@@ -469,12 +491,19 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <TornEdge position="top" colorClass="bg-black" />
 
       {/* REVIEWS SECTION */}
-      <section className="py-24 md:py-32 bg-black text-white relative" id="review">
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 bg-black text-white relative" 
+        id="review"
+      >
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             
@@ -537,7 +566,7 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
       <TornEdge position="top" colorClass="bg-black" />
 
       {/* FOOTER */}
