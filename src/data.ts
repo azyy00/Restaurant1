@@ -205,7 +205,7 @@ export const menuItems = [
 ];
 
 export const reviews = [
-  { id: 1, name: "Juan Dela Cruz", rating: 5, text: "The best burger in Goa! Highly recommended. The patty is so juicy." },
-  { id: 2, name: "Maria Clara", rating: 5, text: "Cozy vibe and great coffee. Perfect place to chill after work." },
-  { id: 3, name: "Pedro Penduko", rating: 4, text: "Affordable and very delicious. Will definitely order via GrabFood again." }
+  { id: 1, name: "King Villanueva", rating: 5, date: "a year ago", text: "Foods are very delicious. When I always go there I always order chicken inasal." },
+  { id: 2, name: "Arjijiii", rating: 5, date: "a year ago", text: "One of the best hangout spots here in Partido. Offers affordable food and drinks that would definitely satisfy every customer's cravings." },
+  { id: 3, name: "zeth borrega", rating: 5, date: "2 years ago", text: "Foods are affordable and yummy" }
 ];
