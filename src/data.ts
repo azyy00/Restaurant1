@@ -2,63 +2,63 @@ export const menuItems = [
   // --- BURGERS ---
   { 
     id: 1, 
-    name: "Classic Quarter Pounder", 
+    name: "Chicken Burger", 
     category: "Burgers", 
-    price: 99, 
+    price: 85, 
     bestseller: true, 
     description: "Our signature flame-grilled beef patty, fresh veggies, and special Delpha sauce.", 
     image: "https://scontent.fmnl30-2.fna.fbcdn.net/v/t39.30808-6/642495409_932124016021472_6884658793443905634_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeHrPbHLS-0tco9_V0yuDPdbapGUAmA_18hqkZQCYD_XyNtVWway8bwFUeW-m_9M45G2nTJaUzEg8VZ6CrEOA-Z5&_nc_ohc=UJTeefjGzLkQ7kNvwHIOwBp&_nc_oc=AdqHfrzEaLVXcQrqrGBHKnnXVKo_9LvuVGJT2ZptnltGEbKAoeLrPmy9XzoiAjQblJ0&_nc_zt=23&_nc_ht=scontent.fmnl30-2.fna&_nc_gid=NbsSMALOHb9n6RBVxy-nBA&_nc_ss=7a3a8&oh=00_Af3UrH0Kq3cVUmJ1VhGbzqlLQ_s2WFGkNaEPuDOkQRXt2w&oe=69ED3AC9" 
   },
   { 
     id: 2, 
-    name: "Double Cheese Supreme", 
+    name: "Squad Goals", 
     category: "Burgers", 
-    price: 135, 
+    price: 69, 
     bestseller: true, 
     description: "Double the beef, double the cheese, double the satisfaction.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/641546474_932124006021473_718785447880939171_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeGaJn_GyjZwmB29ITlG-hVy224GlYnqcUbbbgaViepxRpweR-jmiLhcK7I1y7I-kJMRFAwxTLletEwAss9xviFk&_nc_ohc=sBJyVm0ELa0Q7kNvwGP5XAT&_nc_oc=Adr1K-9INd5YXi1OKNtaU82QazQh8rcBykXhnHnOcGLTNdeAIaCrLwSToxZHArzZ-wI&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=4ge79hhvaw-okYd1P879oQ&_nc_ss=7a3a8&oh=00_Af3twrd3ESnujzFErjDH6L63h27ewLSvyz9fI189mWI9pg&oe=69ED5E45" 
   },
   { 
     id: 3, 
-    name: "Bacon Mushroom Melt", 
+    name: "Beshies", 
     category: "Burgers", 
-    price: 145, 
+    price: 109, 
     bestseller: false, 
     description: "Savory mushrooms and crispy bacon strips on a juicy beef patty.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/644332767_932123992688141_445769260231487977_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeElprxLu7fkIBa_n79bP2Sgpvb6kSsxYZWm9vqRKzFhlbF9rGQCl6f33EhhPPu6Xdxv4nvheK48mL4PxPZ9HKTA&_nc_ohc=ufwxzh4nuE0Q7kNvwGqWSRD&_nc_oc=AdqQ9P3QffXoqA_us7P8_6bL8ijloWkB-t7rNSZ6qWFaBIH5p8GgVeFZzvL3r9z6MEU&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=OMrLPIOVSX-pE0qP8x_UXA&_nc_ss=7a3a8&oh=00_Af2StnOb0p8S4EyDCt3MNU22aLn31EQI4MARNMKN7O0yQw&oe=69ED4BC8" 
   },
   { 
     id: 4, 
-    name: "Spicy Volcano Stack", 
+    name: "Burger and Bacon", 
     category: "Burgers", 
-    price: 155, 
+    price: 75, 
     bestseller: false, 
     description: "Stacked high with jalapeños and our proprietary hot sauce. Not for the weak!", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/643564479_932123986021475_1529768385328657692_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeFx79Kg3iRtrS20ev17C7hT-EDjVC7GAXP4QONULsYBc4AkmSEDras00vpiUgJTx0vhAEP-mCwV1ALhZM-wE0p_&_nc_ohc=b3q8624zmocQ7kNvwEc_tWk&_nc_oc=AdrqvpBslHRBpWuhsY7UGyeTZ5wQC9ic7Zykw8Tp4eLnXcFlrT7_A7aUNvVCOccJNek&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=mmcgjaTDVb9e71wXm00w_w&_nc_ss=7a3a8&oh=00_Af2eAX1i_FWwVG9xHxkSa491pPhfW_1Lk8fjRn3NhZsN1A&oe=69ED52E9" 
   },
   { 
     id: 5, 
-    name: "Hickory BBQ Burger", 
+    name: "Haranghae", 
     category: "Burgers", 
-    price: 130, 
+    price: 75, 
     bestseller: false, 
     description: "Infused with smokey hickory barbecue flavor and topped with crisp onion rings.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/643892743_932123939354813_5456265409734994513_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeGOkawHv6pJqXt38V6iHYVFZkneWBXbY9ZmSd5YFdtj1qqQKGb61ZMA0AL1VJR_HYJA8EaGrhm-QrNgeKacu66t&_nc_ohc=oc-szrKF3AIQ7kNvwHmh7Jx&_nc_oc=AdrZ1yA0VHN0ypquKx7ZQH7_W8yA1lvRmnpfjc2_MpRHA6yXJsobjmjbCyHr_x9-P8o&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=k6xblMiZOD60i-clZgwPDQ&_nc_ss=7a3a8&oh=00_Af2DppTOw35yTTuVLYsSQglAo-RJ4-0Lw9ZNCs6Oasn4CQ&oe=69ED49B5" 
   },
   { 
     id: 6, 
-    name: "Golden Hawaiian Burger", 
+    name: "Piña-Ibig", 
     category: "Burgers", 
-    price: 125, 
+    price: 75, 
     bestseller: false, 
     description: "Grilled pineapple slice adds a tropical sweetness to our savory beef patty.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/641549571_932123932688147_7932126907271580308_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeGY-C8A0yf2vNMXx3tXohuwnUVGy3JERDKdRUbLckREMlVOZi7o7UCNTdznHb3Zd1frhwWN3kLYVofqbDqzGMwJ&_nc_ohc=Pwq5XbPMI-QQ7kNvwG6R4lI&_nc_oc=Adp24mo7yrH6AelkOAGxwBdHej5bL9wUcmFBTsP5YFGWyGjJrNelmVgdLt5X6Sih-sg&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=AmwQNXhRSwhmGqUdDPpPFg&_nc_ss=7a3a8&oh=00_Af3gVPLAD-xOq9Tt2Cb_tRIB2erZNgdEvbnFaq9H2x_y2g&oe=69ED471D" 
   },
   { 
     id: 7, 
-    name: "Classic Cheese Overload", 
+    name: "Burger and Egg", 
     category: "Burgers", 
-    price: 110, 
+    price: 75, 
     bestseller: false, 
     description: "A cheese lover's dream. Melted cheddar and mozzarella goodness in every bite.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/641481982_932123902688150_7107871952162603000_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeGKdDkWHOjR3pVHrkVOIdQaUkPkhqIAwgRSQ-SGogDCBAlmfhtj33NZ7OQ9ofGjNmmTLMnnJDtHFFKiik32erfE&_nc_ohc=u5AwRdSRxT0Q7kNvwE9w963&_nc_oc=AdpLBvoLY8OYKpHGUe0z5g1WxbkOB25hCUCVBnmFuqdby3aZFb5bjETIqiEtIwAe3Ic&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=e9ajBjvbzW07Z0IuN_HN5Q&_nc_ss=7a3a8&oh=00_Af3eydQwK_Em0uSHUvYBigPsbxzEZ0Qqmu26Ggocjjmp9A&oe=69ED56F3" 

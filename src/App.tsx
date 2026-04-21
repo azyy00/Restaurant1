@@ -571,7 +571,10 @@ export default function App() {
           </div>
           
           <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] sm:text-xs font-black uppercase tracking-widest text-gray-600">
-            <p>&copy; {new Date().getFullYear()} A-Delpha's Burger And Cafe.</p>
+            <div className="space-y-2 text-center md:text-left">
+              <p>&copy; {new Date().getFullYear()} A-Delpha's Burger And Cafe.</p>
+              <p className="text-gray-700">Design and Developed by Anthony Azuela</p>
+            </div>
             <div className="flex items-center space-x-6">
               <a href="#" className="hover:text-white transition-colors">Privacy</a>
               <a href="#" className="hover:text-white transition-colors">Terms</a>
