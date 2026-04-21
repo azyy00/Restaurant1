@@ -133,7 +133,7 @@ export default function App() {
               className="space-y-4 mb-8"
             >
               <h1 className="font-cursive text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white leading-none tracking-tight drop-shadow-2xl">
-                A-Delpha's <span className="text-orange-accent block md:inline font-sans font-black italic uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest">Burger</span>
+                Adelpha's <span className="text-orange-accent block md:inline font-sans font-black italic uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest">Burger</span>
               </h1>
               <p className="font-body text-gray-400 max-w-lg mx-auto text-sm md:text-base uppercase tracking-[0.3em] font-bold">
                 Affordable Premium • Homegrown in Goa
@@ -150,7 +150,7 @@ export default function App() {
               >
                 <img 
                   src="https://www.pngall.com/wp-content/uploads/2016/05/Burger-Free-PNG-Image.png" 
-                  alt="A-Delpha's Signature Burger" 
+                  alt="Adelpha's Signature Burger" 
                   className="w-full h-auto drop-shadow-[0_20px_50px_rgba(232,130,26,0.5)]"
                   referrerPolicy="no-referrer"
                 />
@@ -208,7 +208,7 @@ export default function App() {
               <div className="relative z-10 rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
                 <img 
                   src="https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/671527371_969227295644477_7609068944753754601_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeH0VARYHlXYyOApZIghXGVP0adtfBUz8ZfRp218FTPxl8uCDxMzmop7PprrNkfw5PoT68kY_TlahIc90vgdNy5a&_nc_ohc=fIGEMBPl4AkQ7kNvwEvPxtE&_nc_oc=Adr4jednFRKsSmE-f85UN9b2no1Y9Tb43pmTAim-QdIpwii1vOuKHdFbrTphrH_d-cg&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=Ref7r3jFsjDeYVKA8zrJ8Q&_nc_ss=7a3a8&oh=00_Af2VOkhhFMj3Y1CDRB8DGcdipp3Gi-zeULhCCU5x7r2HNw&oe=69ED66FF"
-                  alt="A-Delpha's Team"
+                  alt="Adelpha's Team"
                   className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
@@ -228,7 +228,7 @@ export default function App() {
                 <h3 className="font-sans text-4xl md:text-6xl font-black text-white leading-tight">Homegrown Passion. <br/>Innovative Flavor.</h3>
               </div>
               <p className="text-gray-400 text-lg leading-relaxed">
-                Located behind Jollibee on San Isidro St, Goa, A-Delpha's Burger And Cafe is more than just a restaurant—it's a destination for flavor enthusiasts. We bring the comfort of a neighborhood cafe together with the bold innovation of premium smash burgers.
+                Located behind Jollibee on San Isidro St, Goa, Adelpha's Burger And Cafe is more than just a restaurant—it's a destination for flavor enthusiasts. We bring the comfort of a neighborhood cafe together with the bold innovation of premium smash burgers.
               </p>
               <div className="grid grid-cols-2 gap-6 pb-8 border-b border-white/5">
                 <div>
@@ -401,7 +401,7 @@ export default function App() {
               {/* Map Holder */}
               <div className="h-64 md:h-80 rounded-[40px] overflow-hidden border border-white/10 shadow-2xl relative grayscale hover:grayscale-0 transition-all duration-1000">
                 <iframe 
-                  title="A-Delpha's Location"
+                  title="Adelpha's Location"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.54!2d123.489!3d13.693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a1e948c3b659c7%3A0xe96562098b6c8973!2sA-Delpha's%20Burger%20And%20Cafe!5e0!3m2!1sen!2sph!4v1713700000000!5m2!1sen!2sph" 
                   className="w-full h-full border-0 opacity-60 hover:opacity-100 transition-opacity" 
                   allowFullScreen 
@@ -572,7 +572,7 @@ export default function App() {
           
           <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] sm:text-xs font-black uppercase tracking-widest text-gray-600">
             <div className="space-y-2 text-center md:text-left">
-              <p>&copy; {new Date().getFullYear()} A-Delpha's Burger And Cafe.</p>
+              <p>&copy; {new Date().getFullYear()} Adelpha's Burger And Cafe.</p>
               <p className="text-gray-700">Design and Developed by Anthony Azuela</p>
             </div>
             <div className="flex items-center space-x-6">

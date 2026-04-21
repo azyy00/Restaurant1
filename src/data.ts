@@ -65,7 +65,7 @@ export const menuItems = [
   },
   { 
     id: 8, 
-    name: "A-Delpha's Monster", 
+    name: "Adelpha's Monster", 
     category: "Burgers", 
     price: 199, 
     bestseller: true, 
@@ -199,7 +199,7 @@ export const menuItems = [
     category: "Combos", 
     price: 220, 
     bestseller: true, 
-    description: "The complete A-Delpha experience in one satisfying platter.", 
+    description: "The complete Adelpha's experience in one satisfying platter.", 
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/626630477_911201314780409_5857380731600323901_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeFeYdEHBVcqFrtu7caFFwELOaaUC9aWnGk5ppQL1pacaZu10qmZpRpdnrKSr-zg-gE3kU6O9EsrJ38ZiPLVzHFA&_nc_ohc=VCHUUnReaXUQ7kNvwGcvNl6&_nc_oc=AdqkISevZhTEhGLmrGdZICGYMk8mUD6y_gyoJl-lEuJt-A9cc7Bv2ylbDra_UftCrlk&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=eGoqoKeqydoeJM1MdQoTLA&_nc_ss=7a3a8&oh=00_Af1vncD3_fUYMAADdq7Zjp2w0kxKzxcHscUqomJm_83W9g&oe=69ED6345" 
   }
 ];
