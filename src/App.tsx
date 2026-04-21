@@ -9,7 +9,7 @@ import { ShoppingCart, Menu as MenuIcon, Phone, MapPin, Clock, Star, X, CheckCir
 import { menuItems, reviews } from './data';
 
 // TORN EDGE COMPONENT
-const TornEdge = ({ position = 'top', colorClass = 'bg-[#FDF6EE]', className = "" }) => {
+const TornEdge = ({ position = 'top', colorClass = 'bg-black', className = "" }) => {
   return (
     <div className={`w-full h-12 md:h-20 lg:h-24 ${colorClass} ${position === 'top' ? 'torn-edge-top' : 'torn-edge-bottom'} ${className}`} aria-hidden="true" />
   );
@@ -31,7 +31,7 @@ export default function App() {
     : menuItems.filter(item => item.category === activeTab);
 
   return (
-    <div className="font-sans bg-[#FDF6EE] text-[#1E0F00] min-h-screen">
+    <div className="font-sans bg-black text-white min-h-screen">
       
       {/* STICKY NAVIGATION */}
       <nav className="fixed w-full z-50 bg-black/95 backdrop-blur-md text-white shadow-xl transition-all duration-500">
@@ -247,9 +247,6 @@ export default function App() {
 
       <TornEdge position="top" colorClass="bg-black" />
 
-      
-      <TornEdge position="top" colorClass="bg-black" />
-
       {/* FULL MENU */}
       <section className="py-24 md:py-32 bg-black text-white relative" id="menu">
         <div className="container-custom">
@@ -347,66 +344,6 @@ export default function App() {
           </div>
         </div>
       </section>
-            {/* REVIEWS SECTION */}
-      <section className="py-24 md:py-32 bg-black text-white relative" id="review">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6 text-center lg:text-left"
-            >
-              <div className="space-y-2">
-                <h2 className="font-cursive text-orange-accent text-3xl md:text-5xl">The Verdict</h2>
-                <h3 className="font-sans text-4xl md:text-7xl font-black">Love From Camarines</h3>
-              </div>
-              
-              <div className="bg-[#121212] p-8 rounded-[32px] border border-white/5 max-w-sm inline-block mx-auto lg:mx-0">
-                <div className="flex items-center space-x-5">
-                  <div className="text-5xl font-black">4.8</div>
-                  <div className="space-y-1 text-left">
-                    <div className="flex text-orange-accent">
-                      {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
-                    </div>
-                    <p className="text-[10px] uppercase tracking-widest font-bold text-gray-500">Based on 42 local reviews</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="grid grid-cols-1 gap-6 relative">
-              {reviews.map((testimonial, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  whileHover={{ x: 10 }}
-                  className="bg-[#121212] p-8 rounded-[32px] border border-white/5 relative group hover:border-orange-accent/30 transition-all duration-300"
-                >
-                  <div className="flex text-orange-accent mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                  </div>
-                  <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6 font-medium italic">"{testimonial.text}"</p>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-orange-accent rounded-full flex items-center justify-center font-black text-black">
-                      {testimonial.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="font-bold text-white uppercase text-xs tracking-widest">{testimonial.name}</p>
-                      <p className="text-[10px] font-bold text-orange-accent uppercase tracking-tighter">Verified Guest</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <TornEdge position="top" colorClass="bg-[#050505]" />
 
       {/* CONTACT */}
@@ -499,6 +436,68 @@ export default function App() {
                   Send Message
                 </motion.button>
               </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TornEdge position="top" colorClass="bg-black" />
+
+      {/* REVIEWS SECTION */}
+      <section className="py-24 md:py-32 bg-black text-white relative" id="review">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6 text-center lg:text-left"
+            >
+              <div className="space-y-2">
+                <h2 className="font-cursive text-orange-accent text-3xl md:text-5xl">The Verdict</h2>
+                <h3 className="font-sans text-4xl md:text-7xl font-black">Love From Camarines</h3>
+              </div>
+              
+              <div className="bg-[#121212] p-8 rounded-[32px] border border-white/5 max-w-sm inline-block mx-auto lg:mx-0">
+                <div className="flex items-center space-x-5">
+                  <div className="text-5xl font-black">4.8</div>
+                  <div className="space-y-1 text-left">
+                    <div className="flex text-orange-accent">
+                      {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
+                    </div>
+                    <p className="text-[10px] uppercase tracking-widest font-bold text-gray-500">Based on 42 local reviews</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="grid grid-cols-1 gap-6 relative">
+              {reviews.map((testimonial, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  whileHover={{ x: 10 }}
+                  className="bg-[#121212] p-8 rounded-[32px] border border-white/5 relative group hover:border-orange-accent/30 transition-all duration-300"
+                >
+                  <div className="flex text-orange-accent mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                  </div>
+                  <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6 font-medium italic">"{testimonial.text}"</p>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-orange-accent rounded-full flex items-center justify-center font-black text-black">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-bold text-white uppercase text-xs tracking-widest">{testimonial.name}</p>
+                      <p className="text-[10px] font-bold text-orange-accent uppercase tracking-tighter">Verified Guest</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
