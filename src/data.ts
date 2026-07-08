@@ -2,11 +2,11 @@ export const menuItems = [
   // --- BURGERS ---
   { 
     id: 1, 
-    name: "Chicken Burger", 
-    category: "Burgers", 
-    price: 85, 
-    bestseller: true, 
-    description: "Our signature flame-grilled beef patty, fresh veggies, and special Delpha sauce.", 
+    name: "Chicken Burger",
+    category: "Burgers",
+    price: 85,
+    bestseller: true,
+    description: "Crispy flame-grilled chicken fillet, fresh veggies, and our special Delpha sauce.",
     image: "https://scontent.fmnl30-2.fna.fbcdn.net/v/t39.30808-6/642495409_932124016021472_6884658793443905634_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeHrPbHLS-0tco9_V0yuDPdbapGUAmA_18hqkZQCYD_XyNtVWway8bwFUeW-m_9M45G2nTJaUzEg8VZ6CrEOA-Z5&_nc_ohc=UJTeefjGzLkQ7kNvwHIOwBp&_nc_oc=AdqHfrzEaLVXcQrqrGBHKnnXVKo_9LvuVGJT2ZptnltGEbKAoeLrPmy9XzoiAjQblJ0&_nc_zt=23&_nc_ht=scontent.fmnl30-2.fna&_nc_gid=NbsSMALOHb9n6RBVxy-nBA&_nc_ss=7a3a8&oh=00_Af3UrH0Kq3cVUmJ1VhGbzqlLQ_s2WFGkNaEPuDOkQRXt2w&oe=69ED3AC9" 
   },
   { 
@@ -29,11 +29,11 @@ export const menuItems = [
   },
   { 
     id: 4, 
-    name: "Burger and Bacon", 
-    category: "Burgers", 
-    price: 75, 
-    bestseller: false, 
-    description: "Stacked high with jalapeños and our proprietary hot sauce. Not for the weak!", 
+    name: "Burger and Bacon",
+    category: "Burgers",
+    price: 75,
+    bestseller: false,
+    description: "Smoky bacon strips stacked on a juicy beef patty with melted cheese.",
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/643564479_932123986021475_1529768385328657692_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeFx79Kg3iRtrS20ev17C7hT-EDjVC7GAXP4QONULsYBc4AkmSEDras00vpiUgJTx0vhAEP-mCwV1ALhZM-wE0p_&_nc_ohc=b3q8624zmocQ7kNvwEc_tWk&_nc_oc=AdrqvpBslHRBpWuhsY7UGyeTZ5wQC9ic7Zykw8Tp4eLnXcFlrT7_A7aUNvVCOccJNek&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=mmcgjaTDVb9e71wXm00w_w&_nc_ss=7a3a8&oh=00_Af2eAX1i_FWwVG9xHxkSa491pPhfW_1Lk8fjRn3NhZsN1A&oe=69ED52E9" 
   },
   { 
@@ -56,11 +56,11 @@ export const menuItems = [
   },
   { 
     id: 7, 
-    name: "Burger and Egg", 
-    category: "Burgers", 
-    price: 75, 
-    bestseller: false, 
-    description: "A cheese lover's dream. Melted cheddar and mozzarella goodness in every bite.", 
+    name: "Burger and Egg",
+    category: "Burgers",
+    price: 75,
+    bestseller: false,
+    description: "A juicy beef patty crowned with a runny fried egg. Breakfast, any time.",
     image: "https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/641481982_932123902688150_7107871952162603000_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=dd6889&_nc_eui2=AeGKdDkWHOjR3pVHrkVOIdQaUkPkhqIAwgRSQ-SGogDCBAlmfhtj33NZ7OQ9ofGjNmmTLMnnJDtHFFKiik32erfE&_nc_ohc=u5AwRdSRxT0Q7kNvwE9w963&_nc_oc=AdpLBvoLY8OYKpHGUe0z5g1WxbkOB25hCUCVBnmFuqdby3aZFb5bjETIqiEtIwAe3Ic&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=e9ajBjvbzW07Z0IuN_HN5Q&_nc_ss=7a3a8&oh=00_Af3eydQwK_Em0uSHUvYBigPsbxzEZ0Qqmu26Ggocjjmp9A&oe=69ED56F3" 
   },
   { 

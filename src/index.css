@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Outfit:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -35,13 +35,25 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream-warm);
-  color: var(--color-charcoal);
+  background-color: var(--color-charcoal);
+  color: var(--color-cream-warm);
   overflow-x: hidden;
 }
 
+::selection {
+  background-color: var(--color-orange-accent);
+  color: var(--color-charcoal);
+}
+
 .floating {
-  animation: floating 3s ease-in-out infinite;
+  animation: floating 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .floating,
+  .animate-spin-slow,
+  .pulsing { animation: none !important; }
 }
 
 @keyframes floating {
