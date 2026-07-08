@@ -3,8 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  useMotionValueEvent,
+  useInView,
+  animate,
+} from 'motion/react';
 import {
   MapPin, Clock, Star, Menu as MenuIcon, X, ArrowUpRight, ArrowRight,
   Facebook, Instagram, Send, CheckCircle2, Flame, Navigation, Mail,
@@ -15,6 +26,24 @@ import { menuItems, reviews } from './data';
 // Adelpha's orders happen over Messenger. TODO: swap for the cafe's real page handle.
 const FB_URL = 'https://www.facebook.com/adelphasburgerandcafe';
 const MAP_QUERY = '13.699061478263891,123.48976055863386';
+
+// Branded placeholder shown until a real local photo exists at the expected path.
+const IMG_FALLBACK =
+  'data:image/svg+xml,' +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>" +
+      "<rect width='400' height='300' fill='#2D1800'/>" +
+      "<text x='200' y='140' fill='#E8821A' font-family='Outfit, sans-serif' font-weight='800' font-size='30' text-anchor='middle'>Adelpha&#39;s</text>" +
+      "<text x='200' y='173' fill='#FDF6EE' fill-opacity='0.45' font-family='Outfit, sans-serif' font-size='13' letter-spacing='3' text-anchor='middle'>PHOTO COMING SOON</text>" +
+      '</svg>',
+  );
+
+function onImgError(e: React.SyntheticEvent<HTMLImageElement>) {
+  const img = e.currentTarget;
+  if (img.dataset.fallback) return; // guard against loops
+  img.dataset.fallback = '1';
+  img.src = IMG_FALLBACK;
+}
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -29,8 +58,21 @@ export default function App() {
   const reduce = useReducedMotion();
   const [activeTab, setActiveTab] = useState('All');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Derive tabs from the data so we never render an empty category.
+  // Nav reacts to scroll for a weightier, premium feel once you leave the hero.
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 24));
+
+  // Hero parallax.
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const burgerY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+
   const categories = useMemo(
     () => ['All', ...Array.from(new Set(menuItems.map((i) => i.category)))],
     [],
@@ -39,7 +81,6 @@ export default function App() {
   const filteredMenu =
     activeTab === 'All' ? menuItems : menuItems.filter((i) => i.category === activeTab);
 
-  // Reveal-on-scroll helper that collapses to nothing under reduced motion.
   const reveal = (delay = 0) =>
     reduce
       ? {}
@@ -50,10 +91,28 @@ export default function App() {
           transition: { duration: 0.7, ease: EASE, delay },
         };
 
+  // Staggered headline reveal.
+  const headline = reduce
+    ? {}
+    : {
+        initial: 'hidden',
+        animate: 'show',
+        variants: { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } },
+      };
+  const lineV = reduce
+    ? {}
+    : { variants: { hidden: { opacity: 0, y: 26 }, show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } } } };
+
   return (
-    <div className="font-body bg-charcoal text-cream-warm min-h-screen antialiased selection:bg-orange-accent">
+    <div className="font-body bg-charcoal text-cream-warm min-h-screen antialiased">
       {/* ───────────────────────── NAV ───────────────────────── */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-charcoal/80 backdrop-blur-xl">
+      <nav
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
+          scrolled
+            ? 'border-white/10 bg-charcoal/95 shadow-xl shadow-black/40 backdrop-blur-xl'
+            : 'border-transparent bg-charcoal/40 backdrop-blur-md'
+        }`}
+      >
         <div className="container-custom flex h-16 items-center justify-between md:h-[72px]">
           <a href="#home" className="flex items-baseline gap-0.5 font-sans font-black tracking-tighter">
             <span className="text-2xl text-orange-accent md:text-[26px]">Adel</span>
@@ -74,15 +133,16 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
+            <Magnetic
               href={FB_URL}
               target="_blank"
               rel="noreferrer"
-              className="hidden items-center gap-2 rounded-full bg-orange-accent px-6 py-2.5 text-sm font-bold text-charcoal shadow-lg shadow-orange-accent/20 transition-all hover:bg-orange-light active:translate-y-px sm:flex"
+              reduce={!!reduce}
+              className="hidden items-center gap-2 rounded-full bg-orange-accent px-6 py-2.5 text-sm font-bold text-charcoal shadow-lg shadow-orange-accent/25 transition-colors hover:bg-orange-light sm:flex"
             >
               Order on Messenger
               <ArrowUpRight size={16} strokeWidth={2.5} />
-            </a>
+            </Magnetic>
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
               className="p-2 text-cream-warm transition-colors hover:text-orange-accent lg:hidden"
@@ -128,12 +188,14 @@ export default function App() {
       </nav>
 
       {/* ───────────────────────── HERO ───────────────────────── */}
-      <section id="home" className="relative overflow-hidden pt-16 md:pt-[72px]">
-        {/* warm glow, not neon */}
-        <div className="pointer-events-none absolute inset-0 z-0">
+      <section ref={heroRef} id="home" className="relative overflow-hidden pt-16 md:pt-[72px]">
+        <motion.div
+          style={reduce ? undefined : { y: glowY }}
+          className="pointer-events-none absolute inset-0 z-0"
+        >
           <div className="absolute -top-32 right-[-10%] h-[520px] w-[520px] rounded-full bg-orange-accent/20 blur-[130px]" />
           <div className="absolute bottom-[-20%] left-[-10%] h-[420px] w-[420px] rounded-full bg-brown-light/60 blur-[120px]" />
-        </div>
+        </motion.div>
 
         <div className="container-custom relative z-10 grid min-h-[calc(100dvh-72px)] items-center gap-8 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6 lg:py-0">
           {/* copy */}
@@ -146,17 +208,17 @@ export default function App() {
             </motion.p>
 
             <motion.h1
-              {...(reduce ? {} : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE, delay: 0.05 } })}
+              {...headline}
               className="font-sans text-5xl font-black leading-[0.95] tracking-tighter text-cream-warm sm:text-6xl lg:text-7xl xl:text-8xl"
             >
-              Smash burgers
-              <br />
-              worth the{' '}
-              <span className="italic text-orange-accent">trip.</span>
+              <motion.span {...lineV} className="block">Smash burgers</motion.span>
+              <motion.span {...lineV} className="block">
+                worth the <span className="italic text-orange-accent">trip.</span>
+              </motion.span>
             </motion.h1>
 
             <motion.p
-              {...(reduce ? {} : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE, delay: 0.15 } })}
+              {...(reduce ? {} : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE, delay: 0.35 } })}
               className="mx-auto mt-6 max-w-md text-base leading-relaxed text-cream-warm/60 lg:mx-0 lg:text-lg"
             >
               Fresh-beef burgers and brewed-daily coffee. Affordable premium comfort food,
@@ -164,15 +226,16 @@ export default function App() {
             </motion.p>
 
             <motion.div
-              {...(reduce ? {} : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE, delay: 0.25 } })}
+              {...(reduce ? {} : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE, delay: 0.5 } })}
               className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:items-start"
             >
-              <a
+              <Magnetic
                 href="#menu"
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-orange-accent px-8 py-4 font-bold text-charcoal shadow-xl shadow-orange-accent/25 transition-all hover:bg-orange-light active:translate-y-px sm:w-auto"
+                reduce={!!reduce}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-orange-accent px-8 py-4 font-bold text-charcoal shadow-xl shadow-orange-accent/30 transition-colors hover:bg-orange-light sm:w-auto"
               >
                 See the Menu <ArrowRight size={18} strokeWidth={2.5} />
-              </a>
+              </Magnetic>
               <a
                 href="#visit"
                 className="flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-8 py-4 font-bold text-cream-warm transition-all hover:border-orange-accent/60 hover:text-orange-accent active:translate-y-px sm:w-auto"
@@ -187,23 +250,27 @@ export default function App() {
             <motion.div
               {...(reduce
                 ? {}
-                : { initial: { opacity: 0, scale: 0.85, y: 30 }, animate: { opacity: 1, scale: 1, y: 0 }, transition: { duration: 1, ease: EASE, delay: 0.1 } })}
+                : { initial: { opacity: 0, scale: 0.85 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 1, ease: EASE, delay: 0.1 } })}
               className="relative w-[280px] sm:w-[360px] lg:w-[460px]"
             >
-              <img
-                src="https://www.pngall.com/wp-content/uploads/2016/05/Burger-Free-PNG-Image.png"
-                alt="Adelpha's signature smash burger"
-                className={`w-full drop-shadow-[0_30px_60px_rgba(232,130,26,0.35)] ${reduce ? '' : 'floating'}`}
-                referrerPolicy="no-referrer"
-              />
-              <motion.div
-                {...(reduce
-                  ? {}
-                  : { initial: { scale: 0, rotate: -18 }, animate: { scale: 1, rotate: 10 }, transition: { delay: 0.7, type: 'spring', stiffness: 180 } })}
-                className="absolute -right-2 top-2 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-cream-warm text-charcoal shadow-2xl sm:h-28 sm:w-28"
-              >
-                <span className="text-[10px] font-bold uppercase tracking-wider">From</span>
-                <span className="font-sans text-3xl font-black leading-none sm:text-4xl">&#8369;69</span>
+              <motion.div style={reduce ? undefined : { y: burgerY }} className="relative">
+                <div className={reduce ? '' : 'floating'}>
+                  <img
+                    src="https://www.pngall.com/wp-content/uploads/2016/05/Burger-Free-PNG-Image.png"
+                    alt="Adelpha's signature smash burger"
+                    className="w-full drop-shadow-[0_30px_60px_rgba(232,130,26,0.35)]"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <motion.div
+                  {...(reduce
+                    ? {}
+                    : { initial: { scale: 0, rotate: -18 }, animate: { scale: 1, rotate: 10 }, transition: { delay: 0.7, type: 'spring', stiffness: 180 } })}
+                  className="absolute -right-2 top-2 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-cream-warm text-charcoal shadow-2xl sm:h-28 sm:w-28"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-wider">From</span>
+                  <span className="font-sans text-3xl font-black leading-none sm:text-4xl">&#8369;69</span>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
@@ -214,13 +281,13 @@ export default function App() {
       <section className="border-y border-white/5 bg-brown-dark/40">
         <div className="container-custom grid grid-cols-2 divide-x divide-white/5 md:grid-cols-4">
           {[
-            { k: '4.8', l: 'From 42 local reviews' },
-            { k: '100%', l: 'Fresh beef, daily' },
-            { k: `${menuItems.length}`, l: 'Dishes on the menu' },
-            { k: '9-7', l: 'Open every day' },
+            { node: <CountUp to={4.8} decimals={1} reduce={!!reduce} />, l: 'From 42 local reviews' },
+            { node: <CountUp to={100} suffix="%" reduce={!!reduce} />, l: 'Fresh beef, daily' },
+            { node: <CountUp to={menuItems.length} reduce={!!reduce} />, l: 'Dishes on the menu' },
+            { node: '9-7', l: 'Open every day' },
           ].map((s, i) => (
             <motion.div key={s.l} {...reveal(i * 0.05)} className="px-4 py-8 text-center md:py-10">
-              <div className="font-sans text-3xl font-black text-orange-accent md:text-4xl">{s.k}</div>
+              <div className="font-sans text-3xl font-black text-orange-accent md:text-4xl">{s.node}</div>
               <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-cream-warm/45">{s.l}</div>
             </motion.div>
           ))}
@@ -237,7 +304,6 @@ export default function App() {
             </h2>
           </motion.div>
 
-          {/* tabs */}
           <div className="mb-12 flex snap-x gap-3 overflow-x-auto pb-2 md:mb-16 md:flex-wrap md:justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {categories.map((category) => {
               const active = activeTab === category;
@@ -262,52 +328,10 @@ export default function App() {
             })}
           </div>
 
-          {/* grid */}
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filteredMenu.map((item) => (
-                <motion.article
-                  layout
-                  key={item.id}
-                  initial={reduce ? false : { opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={reduce ? undefined : { opacity: 0, scale: 0.94 }}
-                  transition={{ duration: 0.35, ease: EASE }}
-                  className="group relative flex flex-col overflow-hidden rounded-[28px] border border-white/5 bg-brown-dark/50 transition-colors hover:border-orange-accent/25"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-charcoal">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    {item.bestseller && (
-                      <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-orange-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-charcoal shadow-lg">
-                        <Flame size={13} strokeWidth={2.5} /> Bestseller
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-2 flex items-start justify-between gap-3">
-                      <h3 className="font-sans text-xl font-black leading-tight text-cream-warm">{item.name}</h3>
-                      <span className="shrink-0 font-sans text-xl font-black text-orange-accent">&#8369;{item.price}</span>
-                    </div>
-                    <p className="mb-6 line-clamp-2 text-sm leading-relaxed text-cream-warm/55">
-                      {item.description}
-                    </p>
-                    <a
-                      href={FB_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-auto flex items-center justify-center gap-2 rounded-full border border-white/10 py-3 text-sm font-bold text-cream-warm transition-all hover:border-transparent hover:bg-orange-accent hover:text-charcoal active:translate-y-px"
-                    >
-                      Order this <ArrowUpRight size={16} strokeWidth={2.5} />
-                    </a>
-                  </div>
-                </motion.article>
+                <MenuCard key={item.id} item={item} reduce={!!reduce} />
               ))}
             </AnimatePresence>
           </motion.div>
@@ -320,10 +344,10 @@ export default function App() {
           <motion.div {...reveal()} className="relative">
             <div className="overflow-hidden rounded-[36px] border border-white/10">
               <img
-                src="https://scontent.fwnp1-1.fna.fbcdn.net/v/t39.30808-6/671527371_969227295644477_7609068944753754601_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeH0VARYHlXYyOApZIghXGVP0adtfBUz8ZfRp218FTPxl8uCDxMzmop7PprrNkfw5PoT68kY_TlahIc90vgdNy5a&_nc_ohc=fIGEMBPl4AkQ7kNvwEvPxtE&_nc_oc=Adr4jednFRKsSmE-f85UN9b2no1Y9Tb43pmTAim-QdIpwii1vOuKHdFbrTphrH_d-cg&_nc_zt=23&_nc_ht=scontent.fwnp1-1.fna&_nc_gid=Ref7r3jFsjDeYVKA8zrJ8Q&_nc_ss=7a3a8&oh=00_Af2VOkhhFMj3Y1CDRB8DGcdipp3Gi-zeULhCCU5x7r2HNw&oe=69ED66FF"
+                src="/story.jpg"
                 alt="The Adelpha's team behind the counter"
-                referrerPolicy="no-referrer"
-                className="aspect-[4/5] w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                onError={onImgError}
+                className="aspect-[4/5] w-full object-cover grayscale transition-all duration-700 hover:grayscale-0 hover:scale-[1.03]"
               />
             </div>
             <div className="absolute -bottom-6 -right-4 rounded-3xl bg-orange-accent px-7 py-5 text-charcoal shadow-2xl">
@@ -357,6 +381,9 @@ export default function App() {
         </div>
       </section>
 
+      {/* ─────────────────────── BRAND MARQUEE ─────────────────────── */}
+      <BrandMarquee reduce={!!reduce} />
+
       {/* ─────────────────────── REVIEWS ─────────────────────── */}
       <section className="relative bg-brown-dark/40 py-24 md:py-32">
         <div className="container-custom grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
@@ -384,7 +411,7 @@ export default function App() {
               <motion.figure
                 key={r.id}
                 {...reveal(i * 0.08)}
-                className="rounded-3xl border border-white/5 bg-charcoal/60 p-7 transition-colors hover:border-orange-accent/25"
+                className="rounded-3xl border border-white/5 bg-charcoal/60 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-orange-accent/30"
               >
                 <div className="mb-4 flex gap-1 text-orange-accent">
                   {Array.from({ length: r.rating }).map((_, s) => (
@@ -427,14 +454,13 @@ export default function App() {
           </motion.div>
 
           <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr]">
-            {/* details + map */}
             <motion.div {...reveal()} className="space-y-6">
               {[
                 { icon: MapPin, t: 'Location', d: 'San Isidro St, Goa, Camarines Sur (back of Jollibee)' },
                 { icon: Clock, t: 'Hours', d: 'Monday to Sunday, 9:00 AM to 7:00 PM' },
                 { icon: MessageCircle, t: 'Orders', d: 'Message us on Facebook to reserve or pre-order' },
               ].map((c) => (
-                <div key={c.t} className="flex items-start gap-4 rounded-2xl border border-white/5 bg-brown-dark/40 p-5">
+                <div key={c.t} className="flex items-start gap-4 rounded-2xl border border-white/5 bg-brown-dark/40 p-5 transition-colors hover:border-orange-accent/20">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-accent/15 text-orange-accent">
                     <c.icon size={22} />
                   </div>
@@ -465,7 +491,6 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* form */}
             <motion.div {...reveal(0.1)}>
               <ContactForm reduce={!!reduce} />
             </motion.div>
@@ -544,6 +569,189 @@ export default function App() {
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+/* ──────────────────────── MAGNETIC BUTTON ──────────────────────── */
+function Magnetic({
+  children,
+  className,
+  href,
+  reduce,
+  target,
+  rel,
+  onClick,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  href: string;
+  reduce: boolean;
+  target?: string;
+  rel?: string;
+  onClick?: () => void;
+}) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 220, damping: 16, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 220, damping: 16, mass: 0.4 });
+
+  function onMove(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (reduce || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    x.set((e.clientX - (r.left + r.width / 2)) * 0.28);
+    y.set((e.clientY - (r.top + r.height / 2)) * 0.28);
+  }
+  function onLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      target={target}
+      rel={rel}
+      onClick={onClick}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      whileTap={reduce ? undefined : { scale: 0.96 }}
+      style={reduce ? undefined : { x: sx, y: sy }}
+      className={className}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+/* ──────────────────────── MENU CARD (cursor spotlight) ──────────────────────── */
+function MenuCard({
+  item,
+  reduce,
+}: {
+  item: (typeof menuItems)[number];
+  reduce: boolean;
+}) {
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  function onMove(e: React.MouseEvent<HTMLElement>) {
+    if (!glowRef.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    glowRef.current.style.background = `radial-gradient(240px circle at ${e.clientX - r.left}px ${
+      e.clientY - r.top
+    }px, rgba(232,130,26,0.16), transparent 65%)`;
+  }
+
+  return (
+    <motion.article
+      layout
+      initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={reduce ? undefined : { opacity: 0, scale: 0.94 }}
+      transition={{ duration: 0.35, ease: EASE }}
+      onMouseMove={reduce ? undefined : onMove}
+      className="group relative flex flex-col overflow-hidden rounded-[28px] border border-white/5 bg-brown-dark/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-orange-accent/25"
+    >
+      <div
+        ref={glowRef}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+      <div className="relative aspect-[4/3] overflow-hidden bg-charcoal">
+        <img
+          src={item.image}
+          alt={item.name}
+          loading="lazy"
+          onError={onImgError}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        {item.bestseller && (
+          <span className="absolute left-4 top-4 z-20 flex items-center gap-1.5 rounded-full bg-orange-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-charcoal shadow-lg">
+            <Flame size={13} strokeWidth={2.5} /> Bestseller
+          </span>
+        )}
+      </div>
+
+      <div className="relative z-20 flex flex-1 flex-col p-6">
+        <div className="mb-2 flex items-start justify-between gap-3">
+          <h3 className="font-sans text-xl font-black leading-tight text-cream-warm">{item.name}</h3>
+          <span className="shrink-0 font-sans text-xl font-black text-orange-accent">&#8369;{item.price}</span>
+        </div>
+        <p className="mb-6 line-clamp-2 text-sm leading-relaxed text-cream-warm/55">{item.description}</p>
+        <a
+          href={FB_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-auto flex items-center justify-center gap-2 rounded-full border border-white/10 py-3 text-sm font-bold text-cream-warm transition-all hover:border-transparent hover:bg-orange-accent hover:text-charcoal active:translate-y-px"
+        >
+          Order this <ArrowUpRight size={16} strokeWidth={2.5} />
+        </a>
+      </div>
+    </motion.article>
+  );
+}
+
+/* ──────────────────────── COUNT-UP STAT ──────────────────────── */
+function CountUp({
+  to,
+  decimals = 0,
+  suffix = '',
+  reduce,
+}: {
+  to: number;
+  decimals?: number;
+  suffix?: string;
+  reduce: boolean;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const [val, setVal] = useState(reduce ? to : 0);
+
+  useEffect(() => {
+    if (reduce) {
+      setVal(to);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration: 1.3,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setVal(v),
+    });
+    return () => controls.stop();
+  }, [inView, to, reduce]);
+
+  return (
+    <span ref={ref}>
+      {val.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
+
+/* ──────────────────────── BRAND MARQUEE ──────────────────────── */
+function BrandMarquee({ reduce }: { reduce: boolean }) {
+  const items = ['100% Fresh Beef', 'Brewed Daily', 'Behind Jollibee', 'Homegrown in Goa', 'Affordable Premium', 'Since 2023'];
+  const row = [...items, ...items];
+  return (
+    <div className="overflow-hidden border-y border-white/5 bg-brown-dark/30 py-5">
+      <motion.div
+        className="flex w-max items-center gap-10 whitespace-nowrap"
+        animate={reduce ? undefined : { x: ['0%', '-50%'] }}
+        transition={reduce ? undefined : { duration: 26, ease: 'linear', repeat: Infinity }}
+      >
+        {row.map((t, i) => (
+          <span
+            key={i}
+            className="flex items-center gap-10 text-sm font-bold uppercase tracking-[0.25em] text-cream-warm/30"
+          >
+            {t}
+            <Flame size={13} className="text-orange-accent/60" />
+          </span>
+        ))}
+      </motion.div>
     </div>
   );
 }
