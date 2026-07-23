@@ -1,41 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="Adelpha's Burger And Cafe">
   <defs>
     <radialGradient id="glow" cx="78%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="#E8821A" stop-opacity="0.35"/>
-      <stop offset="55%" stop-color="#E8821A" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#E8821A" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#FFC400" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#FFC400" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#FFC400" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1E0F00"/>
-      <stop offset="100%" stop-color="#2D1800"/>
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#121212"/>
     </linearGradient>
     <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3D2200"/>
-      <stop offset="100%" stop-color="#1E0F00"/>
+      <stop offset="0%" stop-color="#1F1F1F"/>
+      <stop offset="100%" stop-color="#000000"/>
     </linearGradient>
   </defs>
 
   <!-- background -->
   <rect width="1200" height="420" fill="url(#bg)"/>
   <rect width="1200" height="420" fill="url(#glow)"/>
-  <rect x="0" y="0" width="1200" height="420" fill="none" stroke="#E8821A" stroke-opacity="0.18" stroke-width="2"/>
+  <rect x="0" y="0" width="1200" height="420" fill="none" stroke="#FFC400" stroke-opacity="0.18" stroke-width="2"/>
 
   <!-- left: wordmark + copy -->
-  <text x="80" y="150" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="7" fill="#E8821A">HOMEGROWN IN GOA &#183; SINCE 2023</text>
+  <text x="80" y="150" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="7" fill="#FFC400">HOMEGROWN IN GOA &#183; SINCE 2023</text>
 
   <text x="76" y="255" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="800" letter-spacing="-2">
-    <tspan fill="#E8821A">Adel</tspan><tspan fill="#FDF6EE">pha&#8217;s</tspan>
+    <tspan fill="#FFC400">Adel</tspan><tspan fill="#FFFFFF">pha&#8217;s</tspan>
   </text>
 
-  <text x="80" y="320" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FDF6EE" fill-opacity="0.85">Smash burgers worth the <tspan fill="#E8821A" font-style="italic">trip.</tspan></text>
+  <text x="80" y="320" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF" fill-opacity="0.9">Smash burgers worth the <tspan fill="#FFC400" font-style="italic">trip.</tspan></text>
 
-  <text x="80" y="366" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" letter-spacing="2" fill="#FDF6EE" fill-opacity="0.45">100% FRESH BEEF  &#8226;  BREWED DAILY  &#8226;  AFFORDABLE PREMIUM</text>
+  <text x="80" y="366" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" letter-spacing="2" fill="#FFFFFF" fill-opacity="0.45">100% FRESH BEEF  &#8226;  BREWED DAILY  &#8226;  AFFORDABLE PREMIUM</text>
 
   <!-- right: signature price badge -->
   <g transform="translate(1010,210)">
-    <circle r="118" fill="url(#plate)" stroke="#E8821A" stroke-opacity="0.25" stroke-width="2"/>
-    <circle r="92" fill="none" stroke="#E8821A" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="4 10"/>
-    <text x="0" y="-26" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4" fill="#FDF6EE" fill-opacity="0.6">FROM</text>
-    <text x="0" y="46" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="800" fill="#E8821A">&#8369;69</text>
+    <circle r="118" fill="url(#plate)" stroke="#FFC400" stroke-opacity="0.25" stroke-width="2"/>
+    <circle r="92" fill="none" stroke="#FFC400" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="4 10"/>
+    <text x="0" y="-26" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4" fill="#FFFFFF" fill-opacity="0.6">FROM</text>
+    <text x="0" y="46" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="800" fill="#FFC400">&#8369;69</text>
   </g>
 </svg>

@@ -12,13 +12,17 @@
   --font-sans: "Outfit", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-body: "Nunito", sans-serif;
 
-  --color-charcoal: #1E0F00;
-  --color-brown-dark: #2D1800;
-  --color-brown-light: #3D2200;
-  --color-orange-accent: #E8821A;
-  --color-orange-light: #F5A94A;
-  --color-cream-warm: #FDF6EE;
-  --color-cream-dark: #F9EDD8;
+  /* Palette: black background, yellow accent, white text.
+     Token names are kept for compatibility; only the values changed.
+     charcoal = page black, brown-* = elevated near-black surfaces,
+     orange-* = yellow accent, cream-* = white text. */
+  --color-charcoal: #000000;
+  --color-brown-dark: #121212;
+  --color-brown-light: #1F1F1F;
+  --color-orange-accent: #FFC400;
+  --color-orange-light: #FFD54A;
+  --color-cream-warm: #FFFFFF;
+  --color-cream-dark: #EDEDED;
 }
 
 @utility torn-edge-top {
@@ -67,9 +71,9 @@ body {
 }
 
 @keyframes pulsing {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 130, 26, 0.4); }
-  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(232, 130, 26, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 130, 26, 0); }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 196, 0, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 196, 0, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 196, 0, 0); }
 }
 
 @keyframes spin-slow {

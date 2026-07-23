@@ -32,9 +32,9 @@ const IMG_FALLBACK =
   'data:image/svg+xml,' +
   encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>" +
-      "<rect width='400' height='300' fill='#2D1800'/>" +
-      "<text x='200' y='140' fill='#E8821A' font-family='Outfit, sans-serif' font-weight='800' font-size='30' text-anchor='middle'>Adelpha&#39;s</text>" +
-      "<text x='200' y='173' fill='#FDF6EE' fill-opacity='0.45' font-family='Outfit, sans-serif' font-size='13' letter-spacing='3' text-anchor='middle'>PHOTO COMING SOON</text>" +
+      "<rect width='400' height='300' fill='#121212'/>" +
+      "<text x='200' y='140' fill='#FFC400' font-family='Outfit, sans-serif' font-weight='800' font-size='30' text-anchor='middle'>Adelpha&#39;s</text>" +
+      "<text x='200' y='173' fill='#FFFFFF' fill-opacity='0.5' font-family='Outfit, sans-serif' font-size='13' letter-spacing='3' text-anchor='middle'>PHOTO COMING SOON</text>" +
       '</svg>',
   );
 
@@ -258,7 +258,7 @@ export default function App() {
                   <img
                     src="https://www.pngall.com/wp-content/uploads/2016/05/Burger-Free-PNG-Image.png"
                     alt="Adelpha's signature smash burger"
-                    className="w-full drop-shadow-[0_30px_60px_rgba(232,130,26,0.35)]"
+                    className="w-full drop-shadow-[0_30px_60px_rgba(255,196,0,0.30)]"
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -641,7 +641,7 @@ function MenuCard({
     const r = e.currentTarget.getBoundingClientRect();
     glowRef.current.style.background = `radial-gradient(240px circle at ${e.clientX - r.left}px ${
       e.clientY - r.top
-    }px, rgba(232,130,26,0.16), transparent 65%)`;
+    }px, rgba(255,196,0,0.16), transparent 65%)`;
   }
 
   return (
